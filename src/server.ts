@@ -1,5 +1,5 @@
 require("dotenv").config();
-import { getResponseToAPrompt } from "./ChatGpt";
+import { getAIDetectionScore, getResponseToAPrompt } from "./ChatGpt";
 const cors = require("cors");
 
 const express = require("express");
@@ -16,7 +16,9 @@ app.use(express.json());
 app.post(
   "/api/getResponseToAPrompt",
   async (
-    req: { body: { prompt: any; promptOptions: any } },
+    req: {
+      body: { prompt: any; promptOptions: any; isHumanizeEnabled: boolean };
+    },
     res: {
       json: (arg0: { response: any }) => void;
       status: (arg0: number) => {
@@ -26,11 +28,42 @@ app.post(
       };
     }
   ) => {
-    const { prompt, promptOptions } = req.body;
+    const { prompt, promptOptions, isHumanizeEnabled } = req.body;
     try {
-      const result = await getResponseToAPrompt({ prompt, promptOptions });
+      const result = await getResponseToAPrompt({
+        prompt,
+        promptOptions,
+        isHumanizeEnabled,
+      });
       res.json({ response: result });
     } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
+
+app.post(
+  "/api/getAiDetectionScore",
+  async (
+    req: {
+      body: { text: any };
+    },
+    res: {
+      json: (arg0: { response: any }) => void;
+      status: (arg0: number) => {
+        (): any;
+        new (): any;
+        json: { (arg0: { error: string }): void; new (): any };
+      };
+    }
+  ) => {
+    const { text } = req.body;
+    try {
+      const result = await getAIDetectionScore(text);
+      res.json({ response: result });
+    } catch (error) {
+      console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
