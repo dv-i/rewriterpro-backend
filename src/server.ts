@@ -24,7 +24,7 @@ app.post(
       status: (arg0: number) => {
         (): any;
         new (): any;
-        json: { (arg0: { error: string }): void; new (): any };
+        json: { (arg0: { error: string; details: string }): void; new (): any };
       };
     }
   ) => {
@@ -36,9 +36,11 @@ app.post(
         isHumanizeEnabled,
       });
       res.json({ response: result });
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res
+        .status(500)
+        .json({ error: "Internal Server Error", details: error.message });
     }
   }
 );
@@ -54,7 +56,7 @@ app.post(
       status: (arg0: number) => {
         (): any;
         new (): any;
-        json: { (arg0: { error: string }): void; new (): any };
+        json: { (arg0: { error: string; details: string }): void; new (): any };
       };
     }
   ) => {
@@ -62,9 +64,11 @@ app.post(
     try {
       const result = await getAIDetectionScore(text);
       res.json({ response: result });
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      res.status(500).json({ error: "Internal Server Error" });
+      res
+        .status(500)
+        .json({ error: "Internal Server Error", details: error.message });
     }
   }
 );

@@ -106,7 +106,7 @@ export const getAIDetectionScore = async (
       return;
     }
     return `${Math.round(data[0]["AI"] * 100)}`;
-  } catch (error) {
-    console.error("Error fetching data:", error);
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
