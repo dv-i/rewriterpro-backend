@@ -56,20 +56,25 @@ const promptFormatter = ({
   promptOptions,
   isHumanizeEnabled,
 }: GetResponseToAPromptArgs): string => {
-  const { fluency, audience, tone, emotion, length, language } = promptOptions;
   let formattedPrompt = isHumanizeEnabled
     ? HUMANIZE_PROMPT
     : "Please rewrite the following text for me";
-  formattedPrompt += fluency ? ` with ${fluency.toLowerCase()} fluency,` : "";
-  formattedPrompt += tone ? ` in a ${tone.toLowerCase()} tone,` : "";
-  formattedPrompt += audience
-    ? ` for a ${audience.toLowerCase()} audience,`
-    : "";
-  formattedPrompt += emotion ? ` with ${emotion.toLowerCase()} emotions,` : "";
-  formattedPrompt += length ? ` and ${length.toLowerCase()} in length,` : "";
-  formattedPrompt += language
-    ? ` and also translate to ${language.toLowerCase()} and only return the translated text without the original text and without quotes\n`
-    : "";
+  if (promptOptions) {
+    const { fluency, audience, tone, emotion, length, language } =
+      promptOptions;
+    formattedPrompt += fluency ? ` with ${fluency.toLowerCase()} fluency,` : "";
+    formattedPrompt += tone ? ` in a ${tone.toLowerCase()} tone,` : "";
+    formattedPrompt += audience
+      ? ` for a ${audience.toLowerCase()} audience,`
+      : "";
+    formattedPrompt += emotion
+      ? ` with ${emotion.toLowerCase()} emotions,`
+      : "";
+    formattedPrompt += length ? ` and ${length.toLowerCase()} in length,` : "";
+    formattedPrompt += language
+      ? ` and also translate to ${language.toLowerCase()} and only return the translated text without the original text and without quotes\n`
+      : "";
+  }
 
   formattedPrompt += ` - ${prompt}`;
 
