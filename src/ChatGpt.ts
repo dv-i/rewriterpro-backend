@@ -5,7 +5,7 @@ interface GetResponseToAPromptArgs {
   promptOptions: PromptOptions;
   isHumanizeEnabled: boolean;
 }
-export const HUMANIZE_PROMPT = `Please rewrite the following text with varying sentence lengths and simple vocabulary. The sentences should be concise, with a low number of syllables, and maintain a human-like tone to avoid detection by AI detectors`;
+export const HUMANIZE_PROMPT = `Rewrite the above text and add human creativity and originality, understanding context and nuance, emotional intelligence and empathy, critical thinking and reasoning. The personal style and voice should follow these guidelines: Humans possess unique styles and voices that come through in their writing. This makes their work more engaging and memorable for readers. Humans also make grammar mistakes. Keep these factors in mind while rewriting.`;
 export const AI_DETECTOR_API_URL = "https://detector.essaycheck.ai/detect/";
 
 export const getResponseToAPrompt = async ({
