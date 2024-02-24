@@ -56,9 +56,10 @@ const promptFormatter = ({
   promptOptions,
   isHumanizeEnabled,
 }: GetResponseToAPromptArgs): string => {
-  let formattedPrompt = isHumanizeEnabled
+  let formattedPrompt = prompt;
+  formattedPrompt += isHumanizeEnabled
     ? HUMANIZE_PROMPT
-    : "Please rewrite the following text for me";
+    : "Please rewrite the above text for me";
   if (promptOptions) {
     const { fluency, audience, tone, emotion, length, language } =
       promptOptions;
@@ -75,8 +76,6 @@ const promptFormatter = ({
       ? ` and also translate to ${language.toLowerCase()} and only return the translated text without the original text and without quotes\n`
       : "";
   }
-
-  formattedPrompt += ` - ${prompt}`;
 
   return formattedPrompt;
 };
