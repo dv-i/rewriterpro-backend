@@ -5,13 +5,13 @@ interface GetResponseToAPromptArgs {
   promptOptions: PromptOptions;
   isHumanizeEnabled: boolean;
 }
-export const HUMANIZE_PROMPT = `When rewriting follow the instructions below:
+export const HUMANIZE_PROMPT = `When writing follow the instructions below:
 Add Human Creativity and Originality.
 Understanding Context and Nuance.
 Emotional Intelligence and Empathy.
 Critical Thinking and Reasoning.
 Personal Style and Voice.
-Humans possess unique styles and voices that come through in their writing. Keep these in mind while rewriting.`;
+Humans possess unique styles and voices that come through in their writing.`;
 
 export const AI_DETECTOR_API_URL = "https://detector.essaycheck.ai/detect/";
 
