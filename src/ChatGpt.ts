@@ -36,7 +36,7 @@ export const getResponseToAPrompt = async ({
         content: promptFormatter({ prompt, promptOptions, isHumanizeEnabled }),
       },
     ],
-    temperature: 1.2,
+    temperature: 1,
   };
 
   try {
