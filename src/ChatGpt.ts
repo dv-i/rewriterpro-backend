@@ -5,13 +5,7 @@ interface GetResponseToAPromptArgs {
   promptOptions: PromptOptions;
   isHumanizeEnabled: boolean;
 }
-export const HUMANIZE_PROMPT = `When writing follow the instructions below:
-Add Human Creativity and Originality.
-Understanding Context and Nuance.
-Emotional Intelligence and Empathy.
-Critical Thinking and Reasoning.
-Personal Style and Voice.
-Humans possess unique styles and voices that come through in their writing.`;
+export const HUMANIZE_PROMPT = `Rewrite the given text, and follow these rules: use short and low syllables, change words with simpler words, and use varied sentence lengths. use most common words in the English language when possible. Keep word count the same.`;
 
 export const AI_DETECTOR_API_URL = "https://detector.essaycheck.ai/detect/";
 
@@ -29,7 +23,7 @@ export const getResponseToAPrompt = async ({
   };
 
   const requestData = {
-    model: "gpt-3.5-turbo",
+    model: "gpt-4-0125-preview",
     messages: [
       {
         role: "user",
