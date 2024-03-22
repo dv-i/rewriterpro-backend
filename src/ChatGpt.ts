@@ -23,7 +23,7 @@ export const getResponseToAPrompt = async ({
   };
 
   const requestData = {
-    model: "gpt-4-0125-preview",
+    model: "gpt-3.5-turbo-0125",
     messages: [
       {
         role: "user",
