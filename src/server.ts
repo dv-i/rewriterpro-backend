@@ -17,7 +17,12 @@ app.post(
   "/api/getResponseToAPrompt",
   async (
     req: {
-      body: { prompt: any; promptOptions: any; isHumanizeEnabled: boolean };
+      body: {
+        prompt: any;
+        promptOptions: any;
+        isHumanizeEnabled: boolean;
+        selectedModel: string;
+      };
     },
     res: {
       json: (arg0: { response: any }) => void;
@@ -28,12 +33,14 @@ app.post(
       };
     }
   ) => {
-    const { prompt, promptOptions, isHumanizeEnabled } = req.body;
+    const { prompt, promptOptions, isHumanizeEnabled, selectedModel } =
+      req.body;
     try {
       const result = await getResponseToAPrompt({
         prompt,
         promptOptions,
         isHumanizeEnabled,
+        selectedModel,
       });
       res.json({ response: result });
     } catch (error: any) {

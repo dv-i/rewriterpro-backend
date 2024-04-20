@@ -4,6 +4,7 @@ interface GetResponseToAPromptArgs {
   prompt: string;
   promptOptions: PromptOptions;
   isHumanizeEnabled: boolean;
+  selectedModel: string;
 }
 export const HUMANIZE_PROMPT = `Rewrite the given text, and follow these rules: use short and low syllables, change words with simpler words, and use varied sentence lengths. use most common words in the English language when possible. Keep word count the same.`;
 
@@ -13,6 +14,7 @@ export const getResponseToAPrompt = async ({
   prompt,
   promptOptions,
   isHumanizeEnabled,
+  selectedModel,
 }: GetResponseToAPromptArgs): Promise<string | undefined> => {
   const apiKey = process.env.REACT_APP_OPEN_AI_API_KEY || "";
   const apiUrl = "https://api.openai.com/v1/chat/completions";
@@ -23,11 +25,17 @@ export const getResponseToAPrompt = async ({
   };
 
   const requestData = {
-    model: "gpt-4-0125-preview",
+    model:
+      selectedModel === "Swift" ? "gpt-3.5-turbo-0125" : "gpt-4-0125-preview",
     messages: [
       {
         role: "user",
-        content: promptFormatter({ prompt, promptOptions, isHumanizeEnabled }),
+        content: promptFormatter({
+          prompt,
+          promptOptions,
+          isHumanizeEnabled,
+          selectedModel,
+        }),
       },
     ],
     temperature: 1,
