@@ -26,7 +26,7 @@ export const getResponseToAPrompt = async ({
 
   const requestData = {
     model:
-      selectedModel === "Swift" ? "gpt-3.5-turbo-0125" : "gpt-4-0125-preview",
+      selectedModel === "Swift" ? "gpt-3.5-turbo-0125" : "gpt-4o",
     messages: [
       {
         role: "user",
