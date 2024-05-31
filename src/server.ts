@@ -100,7 +100,8 @@ app.post(
   ) => {
     const { email } = req.body;
     try {
-      const isEmailValid = await verifyEmail(email);
+      let isEmailValid = await verifyEmail(email);
+
       res.json({ response: isEmailValid });
     } catch (error: any) {
       console.error(error);

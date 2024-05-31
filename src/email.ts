@@ -35,7 +35,7 @@ export const verifyEmail = async (email: string): Promise<boolean> => {
   if (!verifyResult || !verifyResult.result) {
     return false;
   }
-
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const singleResult = await getSingleResult(email, token);
   if (!singleResult || !singleResult.result) {
     return false;
