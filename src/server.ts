@@ -1,6 +1,6 @@
 require("dotenv").config();
 import { getAIDetectionScore, getResponseToAPrompt } from "./ChatGpt";
-import { verifyEmail } from "./email";
+import { sendVerificationEmail, verifyEmail } from "./email";
 const cors = require("cors");
 
 const express = require("express");
@@ -103,6 +103,39 @@ app.post(
       let isEmailValid = await verifyEmail(email);
 
       res.json({ response: isEmailValid });
+    } catch (error: any) {
+      console.error(error);
+      res
+        .status(500)
+        .json({ error: "Internal Server Error", details: error.message });
+    }
+  }
+);
+
+app.post(
+  "/api/sendSignUpVerificationEmail",
+  async (
+    req: {
+      body: {
+        email: string;
+        name: string;
+        code: string;
+      };
+    },
+    res: {
+      json: (arg0: { response: boolean }) => void;
+      status: (arg0: number) => {
+        (): any;
+        new (): any;
+        json: { (arg0: { error: string; details: string }): void; new (): any };
+      };
+    }
+  ) => {
+    const { email, name, code } = req.body;
+    try {
+      const response = await sendVerificationEmail(email, name, code);
+
+      res.json({ response: response?.result ? true : false });
     } catch (error: any) {
       console.error(error);
       res

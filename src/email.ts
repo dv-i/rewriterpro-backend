@@ -10,6 +10,11 @@ interface SingleVerifierResponse {
   result: boolean;
 }
 
+interface VerificationEmailResponse {
+  result: boolean;
+  id: string;
+}
+
 interface FinalVerifierResponse {
   result: boolean;
   data?: {
@@ -24,6 +29,51 @@ interface FinalVerifierResponse {
     };
   };
 }
+
+export const sendVerificationEmail = async (
+  email: string,
+  name: string,
+  code: string
+) => {
+  const token = await getAccessToken();
+  if (!token) {
+    return null;
+  }
+  const requestBody = {
+    email: {
+      from: { email: "support@rewriterpro.ai", name: "RewriterPro.Ai" },
+      to: [{ email: email }],
+      subject: "RewriterPro.Ai sign up verification code",
+      template: {
+        id: "3edf54acc20a2bcff3b42a77e832b49c",
+        variables: {
+          code: code,
+          name: name,
+        },
+      },
+    },
+  };
+
+  const sendEmailAPIUrl = `https://api.sendpulse.com/smtp/emails`;
+  const requestConfig: AxiosRequestConfig = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    const response = await axios.post<VerificationEmailResponse>(
+      sendEmailAPIUrl,
+      requestBody,
+      requestConfig
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error sending email:", error);
+    return null;
+  }
+};
 
 export const verifyEmail = async (email: string): Promise<boolean> => {
   const token = await getAccessToken();
