@@ -45,7 +45,7 @@ export const sendVerificationEmail = async (
       to: [{ email: email }],
       subject: "RewriterPro.Ai sign up verification code",
       template: {
-        id: "3edf54acc20a2bcff3b42a77e832b49c",
+        id: "e47d52db03e1d746305df5617b0d52b6",
         variables: {
           code: code,
           name: name,
